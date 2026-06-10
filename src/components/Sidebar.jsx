@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, onClose }) => {
     const location = useLocation();
 
     const menuItems = [
@@ -17,8 +17,17 @@ const Sidebar = () => {
     };
 
     return (
-        <aside className="h-screen w-64 fixed left-0 top-0 bg-slate-100/60 backdrop-blur-xl hidden md:flex flex-col p-6 font-['Space_Grotesk'] text-sm border-r border-slate-200/50 z-[100]">
-            <Link to="/" className="mb-10 px-2 no-underline block hover:opacity-80 transition-opacity">
+        <>
+            {/* Mobile Overlay */}
+            {isOpen && (
+                <div 
+                    className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[90] md:hidden"
+                    onClick={onClose}
+                />
+            )}
+            
+            <aside className={`h-screen w-64 fixed left-0 top-0 bg-slate-100/90 md:bg-slate-100/60 backdrop-blur-xl flex flex-col p-6 font-['Space_Grotesk'] text-sm border-r border-slate-200/50 z-[100] transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
+                <Link to="/" className="mb-10 px-2 no-underline block hover:opacity-80 transition-opacity">
                 <p className="text-blue-600 text-2xl font-bold m-0 tracking-tight">DocFlow <span className="text-blue-700">AI</span></p>
                 <div className="flex items-center gap-2 mt-1">
                     <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
@@ -55,6 +64,7 @@ const Sidebar = () => {
                 </Link>
             </div>
         </aside>
+        </>
     );
 };
 

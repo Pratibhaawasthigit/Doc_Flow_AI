@@ -226,7 +226,7 @@ export default function HomeLogin({ onClose }) {
             </form>
 
             <div style={{ textAlign: "center", fontSize: "12px", color: "#6b7280" }}>
-                By creating this account, you agree to our <a href="#" style={{ color: "#374151", textDecoration: "none" }}>Privacy Policy</a> & <a href="#" style={{ color: "#374151", textDecoration: "none" }}>Cookie Policy</a>.
+                By creating this account, you agree to our <a href="/privacy-policy" style={{ color: "#374151", textDecoration: "none", fontWeight: 600 }}>Privacy Policy</a> & <a href="/terms-of-service" style={{ color: "#374151", textDecoration: "none", fontWeight: 600 }}>Terms of Service</a>.
             </div>
         </div>
     );

@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Footer from "../components/Footer";
 
 export default function EducationLayout() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
 
   const getPageTitle = () => {
@@ -21,12 +23,19 @@ export default function EducationLayout() {
       `}</style>
 
       {/* Shared Sidebar */}
-      <Sidebar />
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="flex-1 flex flex-col md:pl-64">
         {/* Global Navigation Header */}
-        <nav className="fixed top-0 right-0 left-0 md:left-64 z-40 bg-white/70 backdrop-blur-xl border-b border-slate-200/60 flex justify-between items-center px-6 h-16 transition-all duration-300">
-          <div className="flex items-center gap-8">
+        <nav className="fixed top-0 right-0 left-0 md:left-64 z-40 bg-white/70 backdrop-blur-xl border-b border-slate-200/60 flex justify-between items-center px-4 md:px-6 h-16 transition-all duration-300">
+          <div className="flex items-center gap-3 md:gap-8">
+            <button 
+                className="md:hidden p-2 text-slate-600 hover:text-slate-900 transition-colors" 
+                onClick={() => setSidebarOpen(true)}
+                aria-label="Open Menu"
+            >
+              <span className="material-symbols-outlined">menu</span>
+            </button>
             <span
               className="text-xl md:text-2xl font-extrabold bg-gradient-to-br from-blue-700 to-blue-500 bg-clip-text text-transparent"
               style={{ fontFamily: "'Space Grotesk', sans-serif" }}

@@ -1137,7 +1137,7 @@ export default function DocFlowNotes() {
     return (
         <>
             <style>{GLOBAL_CSS}</style>
-            <div style={{ flex: 1, padding: "32px 40px", display: "flex", gap: 32, alignItems: "flex-start", width: "100%" }}>
+            <div className="notes-main-wrapper" style={{ flex: 1, display: "flex", gap: 32, alignItems: "flex-start", width: "100%" }}>
 
                 {/* LEFT: Main content */}
                 <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 28 }}>
@@ -1439,8 +1439,10 @@ export default function DocFlowNotes() {
 
         {/* Responsive styles injected */}
         <style>{`
+        .notes-main-wrapper { padding: 32px 40px; }
         @media (max-width: 900px) {
-          .ai-panel-wrap { display: none; }
+          .ai-panel-wrap { display: none !important; }
+          .notes-main-wrapper { padding: 16px 16px; flex-direction: column; }
         }
         @media (max-width: 560px) {
           .upgrade-btn { display: none !important; }

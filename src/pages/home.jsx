@@ -157,14 +157,24 @@ const GlobalStyles = () => (
     .foot-link { color: #64748b; text-decoration: none; font-size: 14px; transition: color .2s; }
     .foot-link:hover { color: #3b82f6; text-decoration: underline; }
 
+    .mobile-menu-btn { display: none; background: none; border: none; color: #000000 !important; cursor: pointer; padding: 4px; }
+    .mobile-menu-btn span { color: #000000 !important; font-weight: 600; font-size: 32px; }
+    .nav-mobile-menu { display: flex; position: absolute; top: 100%; left: 0; right: 0; background: rgba(255,255,255,.98); backdrop-filter: blur(20px); flex-direction: column; padding: 24px 32px; box-shadow: 0 12px 32px rgba(0,74,198,.06); gap: 16px; border-top: 1px solid rgba(0,0,0,0.05); }
+    .nav-link.mobile { display: inline-block; padding: 8px 0; font-size: 16px; width: 100%; }
+    .mobile-btn-sign { display: inline-block !important; text-align: left; padding: 8px 0; font-size: 16px; width: 100%; }
 
+    @media(min-width:901px){
+      .nav-mobile-menu { display: none !important; }
+      .mobile-menu-btn { display: none !important; }
+    }
 
     /* Responsive */
     @media(max-width:900px){
       .hero-flex { flex-direction: column; text-align: center !important; }
       .hero-text { text-align: center !important; }
       .hero-btns { justify-content: center !important; }
-      .nav-links, .btn-sign { display: none !important; }
+      .nav-links, .btn-sign:not(.mobile-btn-sign) { display: none !important; }
+      .mobile-menu-btn { display: flex !important; align-items: center; justify-content: center; }
       .hero-h1 { font-size: 44px !important; }
       .subs-grid { grid-template-columns: repeat(2,1fr) !important; }
       .feats-grid { grid-template-columns: 1fr !important; }
@@ -197,37 +207,54 @@ const GlobalStyles = () => (
 /* ── Nav ────────────────────────────────────────────────────────── */
 function Nav({ onLoginClick }) {
     const [sc, setSc] = useState(false);
+    const [isNavOpen, setIsNavOpen] = useState(false);
     const location = useLocation();
     useEffect(() => {
         const h = () => setSc(window.scrollY > 20);
         window.addEventListener("scroll", h);
         return () => window.removeEventListener("scroll", h);
     }, []);
+
+    const navItems = ["Education Hub", "Platform", "Workspace", "How It Works", "Pricing"];
+    const renderNavLinks = (isMobile = false) => navItems.map((l) => {
+        const isActive = (l === "Education Hub" && location.pathname === "/education-hub") ||
+            (l === "Platform" && location.pathname === "/platform") ||
+            (l === "Workspace" && location.pathname === "/workspace") ||
+            (l === "Pricing" && location.hash === "#pricing") ||
+            (l === "How It Works" && location.hash === "#how-it-works");
+
+        const className = `nav-link${isActive ? " active" : ""}${isMobile ? " mobile" : ""}`;
+        const onClick = isMobile ? () => setIsNavOpen(false) : undefined;
+
+        if (l === "Education Hub") return <Link key={l} to="/education-hub" className={className} onClick={onClick}>{l}</Link>;
+        if (l === "Platform") return <Link key={l} to="/platform" className={className} onClick={onClick}>{l}</Link>;
+        if (l === "Workspace") return <Link key={l} to="/workspace" className={className} onClick={onClick}>{l}</Link>;
+        if (l === "How It Works") return <a key={l} href="#how-it-works" className={className} onClick={onClick}>{l}</a>;
+        if (l === "Pricing") return <a key={l} href="#pricing" className={className} onClick={onClick}>{l}</a>;
+        return <a key={l} href="#" className={className} onClick={onClick}>{l}</a>;
+    });
+
     return (
         <nav className="nav-fixed" style={{ boxShadow: sc ? "0 12px 32px rgba(0,74,198,.08)" : "0 12px 32px rgba(0,74,198,.06)" }}>
             <div className="nav-inner">
                 <Link to="/" className="nav-logo" style={{ textDecoration: 'none' }}>DocFlow AI</Link>
                 <div className="nav-links">
-                    {["Education Hub", "Platform", "Workspace", "How It Works", "Pricing"].map((l) => {
-                        const isActive = (l === "Education Hub" && location.pathname === "/education-hub") ||
-                            (l === "Platform" && location.pathname === "/platform") ||
-                            (l === "Workspace" && location.pathname === "/workspace") ||
-                            (l === "Pricing" && location.hash === "#pricing") ||
-                            (l === "How It Works" && location.hash === "#how-it-works");
-
-                        if (l === "Education Hub") return <Link key={l} to="/education-hub" className={`nav-link${isActive ? " active" : ""}`}>{l}</Link>;
-                        if (l === "Platform") return <Link key={l} to="/platform" className={`nav-link${isActive ? " active" : ""}`}>{l}</Link>;
-                        if (l === "Workspace") return <Link key={l} to="/workspace" className={`nav-link${isActive ? " active" : ""}`}>{l}</Link>;
-                        if (l === "How It Works") return <a key={l} href="#how-it-works" className={`nav-link${isActive ? " active" : ""}`}>{l}</a>;
-                        if (l === "Pricing") return <a key={l} href="#pricing" className={`nav-link${isActive ? " active" : ""}`}>{l}</a>;
-                        return <a key={l} href="#" className={`nav-link${isActive ? " active" : ""}`}>{l}</a>;
-                    })}
+                    {renderNavLinks()}
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
                     <button className="btn-sign" onClick={onLoginClick}>Sign In</button>
                     <button className="btn-cta-nav">Start Free</button>
+                    <button className="mobile-menu-btn" onClick={() => setIsNavOpen(!isNavOpen)}>
+                        <span className="material-symbols-outlined">{isNavOpen ? "close" : "menu"}</span>
+                    </button>
                 </div>
             </div>
+            {isNavOpen && (
+                <div className="nav-mobile-menu">
+                    {renderNavLinks(true)}
+                    <button className="btn-sign mobile-btn-sign" onClick={() => { setIsNavOpen(false); onLoginClick(); }}>Sign In</button>
+                </div>
+            )}
         </nav>
     );
 }

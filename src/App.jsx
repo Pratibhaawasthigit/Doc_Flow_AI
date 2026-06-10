@@ -17,6 +17,8 @@ import CourseDetails from "./pages/CourseDetails";
 import AIEnginePage from "./pages/workspace/AIEnginePage";
 import Settings from "./pages/Settings";
 import HelpCenter from "./pages/HelpCenter";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
 import WorkspaceLayout from "./layouts/WorkspaceLayout";
 import EducationLayout from "./layouts/EducationLayout";
 
@@ -31,6 +33,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
 
         <Route path="/platform" element={<Platform />} />
         <Route path="/login" element={<Login />} />

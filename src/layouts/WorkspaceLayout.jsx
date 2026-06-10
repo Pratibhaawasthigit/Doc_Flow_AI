@@ -195,7 +195,7 @@ export default function WorkspaceLayout() {
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
             <button className="lg-hide" onClick={() => setSidebarOpen(true)}
-              style={{ display: window.innerWidth <= 1024 ? "flex" : "none", padding: 8, background: "none", border: "none", cursor: "pointer", color: "#64748b" }}>
+              style={{ display: window.innerWidth <= 1024 ? "flex" : "none", padding: 8, background: "none", border: "none", cursor: "pointer", color: "#000000" }}>
               <Ic name="menu" size={24} />
             </button>
             <h2 className="font-headline" style={{ fontSize: 18, fontWeight: 700, color: "#004ac6", margin: 0 }}>

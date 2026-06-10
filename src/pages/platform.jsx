@@ -119,9 +119,9 @@ function TopNav({ sidebarOpen, setSidebarOpen }) {
                         aria-label="Toggle menu"
                         className="lg-hide-btn"
                     >
-                        <span style={{ display: "block", width: 20, height: 2, background: "#191c1e", borderRadius: 2, transition: "all 0.3s", transform: sidebarOpen ? "rotate(45deg) translate(5px,5px)" : "none" }} />
-                        <span style={{ display: "block", width: 20, height: 2, background: "#191c1e", borderRadius: 2, opacity: sidebarOpen ? 0 : 1, transition: "all 0.3s" }} />
-                        <span style={{ display: "block", width: 20, height: 2, background: "#191c1e", borderRadius: 2, transition: "all 0.3s", transform: sidebarOpen ? "rotate(-45deg) translate(5px,-5px)" : "none" }} />
+                        <span style={{ display: "block", width: 20, height: 2, background: "#000000", borderRadius: 2, transition: "all 0.3s", transform: sidebarOpen ? "rotate(45deg) translate(5px,5px)" : "none" }} />
+                        <span style={{ display: "block", width: 20, height: 2, background: "#000000", borderRadius: 2, opacity: sidebarOpen ? 0 : 1, transition: "all 0.3s" }} />
+                        <span style={{ display: "block", width: 20, height: 2, background: "#000000", borderRadius: 2, transition: "all 0.3s", transform: sidebarOpen ? "rotate(-45deg) translate(5px,-5px)" : "none" }} />
                     </button>
 
                     {/* Logo */}
