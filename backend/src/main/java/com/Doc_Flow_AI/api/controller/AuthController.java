@@ -3,7 +3,6 @@ package com.Doc_Flow_AI.api.controller;
 import com.Doc_Flow_AI.api.model.User;
 import com.Doc_Flow_AI.api.service.JwtService;
 import com.Doc_Flow_AI.api.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +15,13 @@ import java.util.Optional;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AuthController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final JwtService jwtService;
 
-    @Autowired
-    private JwtService jwtService;
+    public AuthController(UserService userService, JwtService jwtService) {
+        this.userService = userService;
+        this.jwtService = jwtService;
+    }
 
     // POST /api/auth/register
     @PostMapping("/register")

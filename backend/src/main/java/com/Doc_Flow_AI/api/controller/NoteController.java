@@ -2,7 +2,6 @@ package com.Doc_Flow_AI.api.controller;
 
 import com.Doc_Flow_AI.api.model.Note;
 import com.Doc_Flow_AI.api.service.NoteService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +12,11 @@ import java.util.List;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class NoteController {
 
-    @Autowired
-    private NoteService noteService;
+    private final NoteService noteService;
+
+    public NoteController(NoteService noteService) {
+        this.noteService = noteService;
+    }
 
     @GetMapping
     public List<Note> getNotes(@RequestParam(required = false, defaultValue = "admin@docflow.ai") String email) {

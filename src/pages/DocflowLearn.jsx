@@ -1205,7 +1205,15 @@ const AIBar = () => {
     if (!q.trim()) return;
     setLoading(true); setResp("");
     setTimeout(() => {
-      setResp(`DocFlow AI → "${q}": Based on your 5-lesson course (75 min total), I recommend adding a final assessment and a certificate milestone. Your current progress: 2 published, 3 drafts.`);
+      const query = q.toLowerCase();
+      if (query.includes("workflow") || query.includes("approval") || query.includes("aproval")) {
+        setResp(`DocFlow AI → "${q}": The approval workflow features are defined across these spaces in the application:
+1. **Lesson 4 (Approval Workflows)** in DocFlow Learn provides detailed study notes on review steps.
+2. **DocFlow Core (/docflow-core)** is the active space where document states (Pending, Approved, Rejected) are tracked, and e-signatures are handled.
+3. **AI Workspace (/workspace)** is where documents are processed and verified using confidence scores before being finalized.`);
+      } else {
+        setResp(`DocFlow AI → "${q}": Based on your 5-lesson course (75 min total), I recommend adding a final assessment and a certificate milestone. Your current progress: 2 published, 3 drafts.`);
+      }
       setLoading(false);
     }, 1100);
   };

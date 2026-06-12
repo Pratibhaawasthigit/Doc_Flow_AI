@@ -84,6 +84,15 @@ const getEmbedUrl = (url) => {
   return url;
 };
 
+const getImageUrl = (url) => {
+  if (!url) return "";
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  const baseUrl = import.meta.env.BASE_URL || "/";
+  const cleanBase = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
+  const cleanUrl = url.startsWith("/") ? url : `/${url}`;
+  return `${cleanBase}${cleanUrl}`;
+};
+
 function VideoModal({ videoUrl, title, onClose }) {
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -146,7 +155,7 @@ function CourseCard({ course, onPlay }) {
     >
       <div className="h-44 overflow-hidden relative shrink-0 bg-slate-100">
         <img
-          src={course.image}
+          src={getImageUrl(course.image)}
           alt={course.title}
           className={`w-full h-full object-cover transition-transform duration-700 ${hovered ? "scale-105" : "scale-100"}`}
         />

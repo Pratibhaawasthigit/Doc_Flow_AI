@@ -2,7 +2,6 @@ package com.Doc_Flow_AI.api.service;
 
 import com.Doc_Flow_AI.api.model.Note;
 import com.Doc_Flow_AI.api.repository.NoteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +10,11 @@ import java.util.Optional;
 @Service
 public class NoteService {
 
-    @Autowired
-    private NoteRepository noteRepository;
+    private final NoteRepository noteRepository;
+
+    public NoteService(NoteRepository noteRepository) {
+        this.noteRepository = noteRepository;
+    }
 
     public List<Note> getNotesByFolderId(Long folderId) {
         return noteRepository.findByFolderId(folderId);

@@ -5,7 +5,6 @@ import com.Doc_Flow_AI.api.model.User;
 import com.Doc_Flow_AI.api.service.ActivityLogService;
 import com.Doc_Flow_AI.api.service.UserService;
 import com.Doc_Flow_AI.api.service.WorkspaceService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -21,14 +20,15 @@ import java.util.Optional;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class SettingsController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final ActivityLogService activityLogService;
+    private final WorkspaceService workspaceService;
 
-    @Autowired
-    private ActivityLogService activityLogService;
-
-    @Autowired
-    private WorkspaceService workspaceService;
+    public SettingsController(UserService userService, ActivityLogService activityLogService, WorkspaceService workspaceService) {
+        this.userService = userService;
+        this.activityLogService = activityLogService;
+        this.workspaceService = workspaceService;
+    }
 
     // GET /api/settings/profile — Get current user's profile (enhanced)
     @GetMapping("/profile")

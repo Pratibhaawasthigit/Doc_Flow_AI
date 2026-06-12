@@ -427,19 +427,28 @@ export default function CoursePage() {
         const subjectsData = await subjectsRes.json();
 
         // Map backend courses to frontend structure
-        const mappedCourses = coursesData.map(c => ({
-          ...c,
-          title: c.title || "Untitled Course",
-          img: c.image || "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop",
-          students: c.enrolled || "0k",
-          subject: c.category || "General",
-          instructor: c.instructor || "Guest Instructor",
-          rating: c.rating || 0.0,
-          lessons: c.lessons || 0,
-          avatar: c.avatar || "https://i.pravatar.cc/150",
-          level: c.level || "Beginner",
-          duration: c.duration || "2 - 5 hours"
-        }));
+        const baseUrl = import.meta.env.BASE_URL || "/";
+        const cleanBase = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
+        const mappedCourses = coursesData.map(c => {
+          let resolvedImg = c.image || "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop";
+          if (c.image && !c.image.startsWith("http://") && !c.image.startsWith("https://")) {
+            const cleanUrl = c.image.startsWith("/") ? c.image : `/${c.image}`;
+            resolvedImg = `${cleanBase}${cleanUrl}`;
+          }
+          return {
+            ...c,
+            title: c.title || "Untitled Course",
+            img: resolvedImg,
+            students: c.enrolled || "0k",
+            subject: c.category || "General",
+            instructor: c.instructor || "Guest Instructor",
+            rating: c.rating || 0.0,
+            lessons: c.lessons || 0,
+            avatar: c.avatar || "https://i.pravatar.cc/150",
+            level: c.level || "Beginner",
+            duration: c.duration || "2 - 5 hours"
+          };
+        });
 
         setCourses(mappedCourses);
         setSubjects(subjectsData.length > 0 ? subjectsData.map(s => s.name) : SUBJECTS_FALLBACK);

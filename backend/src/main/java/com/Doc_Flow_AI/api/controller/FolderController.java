@@ -2,7 +2,6 @@ package com.Doc_Flow_AI.api.controller;
 
 import com.Doc_Flow_AI.api.model.Folder;
 import com.Doc_Flow_AI.api.service.FolderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +12,11 @@ import java.util.List;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class FolderController {
 
-    @Autowired
-    private FolderService folderService;
+    private final FolderService folderService;
+
+    public FolderController(FolderService folderService) {
+        this.folderService = folderService;
+    }
 
     @GetMapping
     public List<Folder> getFolders(@RequestParam(required = false, defaultValue = "admin@docflow.ai") String email) {

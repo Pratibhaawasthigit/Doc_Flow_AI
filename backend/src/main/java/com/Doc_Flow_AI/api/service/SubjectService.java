@@ -2,7 +2,6 @@ package com.Doc_Flow_AI.api.service;
 
 import com.Doc_Flow_AI.api.model.Subject;
 import com.Doc_Flow_AI.api.repository.SubjectRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +10,11 @@ import java.util.Optional;
 @Service
 public class SubjectService {
 
-    @Autowired
-    private SubjectRepository subjectRepository;
+    private final SubjectRepository subjectRepository;
+
+    public SubjectService(SubjectRepository subjectRepository) {
+        this.subjectRepository = subjectRepository;
+    }
 
     public List<Subject> getAllSubjects() {
         return subjectRepository.findAll();

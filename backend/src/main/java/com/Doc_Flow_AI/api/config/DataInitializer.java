@@ -8,7 +8,6 @@ import com.Doc_Flow_AI.api.repository.FolderRepository;
 import com.Doc_Flow_AI.api.repository.NoteRepository;
 import com.Doc_Flow_AI.api.model.Folder;
 import com.Doc_Flow_AI.api.model.Note;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import java.util.List;
@@ -16,17 +15,20 @@ import java.util.List;
 @Component
 public class DataInitializer implements CommandLineRunner {
 
-    @Autowired
-    private CourseRepository courseRepository;
+    private final CourseRepository courseRepository;
+    private final SubjectRepository subjectRepository;
+    private final FolderRepository folderRepository;
+    private final NoteRepository noteRepository;
 
-    @Autowired
-    private SubjectRepository subjectRepository;
-
-    @Autowired
-    private FolderRepository folderRepository;
-
-    @Autowired
-    private NoteRepository noteRepository;
+    public DataInitializer(CourseRepository courseRepository,
+                           SubjectRepository subjectRepository,
+                           FolderRepository folderRepository,
+                           NoteRepository noteRepository) {
+        this.courseRepository = courseRepository;
+        this.subjectRepository = subjectRepository;
+        this.folderRepository = folderRepository;
+        this.noteRepository = noteRepository;
+    }
 
     @Override
     @SuppressWarnings("null")

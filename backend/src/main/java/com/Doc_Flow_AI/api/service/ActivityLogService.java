@@ -2,7 +2,6 @@ package com.Doc_Flow_AI.api.service;
 
 import com.Doc_Flow_AI.api.model.ActivityLog;
 import com.Doc_Flow_AI.api.repository.ActivityLogRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +12,11 @@ import java.util.Map;
 @Service
 public class ActivityLogService {
 
-    @Autowired
-    private ActivityLogRepository activityLogRepository;
+    private final ActivityLogRepository activityLogRepository;
+
+    public ActivityLogService(ActivityLogRepository activityLogRepository) {
+        this.activityLogRepository = activityLogRepository;
+    }
 
     public ActivityLog logActivity(String userEmail, String type, String title, String description) {
         ActivityLog log = new ActivityLog(userEmail, type, title, description);

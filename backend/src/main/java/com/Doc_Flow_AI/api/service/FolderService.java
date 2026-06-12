@@ -2,7 +2,6 @@ package com.Doc_Flow_AI.api.service;
 
 import com.Doc_Flow_AI.api.model.Folder;
 import com.Doc_Flow_AI.api.repository.FolderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +10,11 @@ import java.util.Optional;
 @Service
 public class FolderService {
 
-    @Autowired
-    private FolderRepository folderRepository;
+    private final FolderRepository folderRepository;
+
+    public FolderService(FolderRepository folderRepository) {
+        this.folderRepository = folderRepository;
+    }
 
     public List<Folder> getFoldersByEmail(String email) {
         return folderRepository.findByUserEmail(email);

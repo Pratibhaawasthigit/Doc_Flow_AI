@@ -2,7 +2,6 @@ package com.Doc_Flow_AI.api.controller;
 
 import com.Doc_Flow_AI.api.model.Workspace;
 import com.Doc_Flow_AI.api.service.WorkspaceService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -10,8 +9,11 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class WorkspaceController {
 
-    @Autowired
-    private WorkspaceService workspaceService;
+    private final WorkspaceService workspaceService;
+
+    public WorkspaceController(WorkspaceService workspaceService) {
+        this.workspaceService = workspaceService;
+    }
 
     @GetMapping
     public Workspace getWorkspace(@RequestParam(required = false, defaultValue = "admin@docflow.ai") String email) {

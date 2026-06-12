@@ -2,18 +2,18 @@ package com.Doc_Flow_AI.api.service;
 
 import com.Doc_Flow_AI.api.model.Workspace;
 import com.Doc_Flow_AI.api.repository.WorkspaceRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 @Service
 public class WorkspaceService {
 
-    @Autowired
-    private WorkspaceRepository workspaceRepository;
+    private final WorkspaceRepository workspaceRepository;
+    private final ActivityLogService activityLogService;
 
-    @Autowired
-    private ActivityLogService activityLogService;
+    public WorkspaceService(WorkspaceRepository workspaceRepository, ActivityLogService activityLogService) {
+        this.workspaceRepository = workspaceRepository;
+        this.activityLogService = activityLogService;
+    }
 
     public Workspace getOrCreateWorkspace(String email) {
         return workspaceRepository.findByUserEmail(email)

@@ -2,8 +2,8 @@ package com.Doc_Flow_AI.api.service;
 
 import com.Doc_Flow_AI.api.model.User;
 import com.Doc_Flow_AI.api.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 import org.springframework.lang.NonNull;
@@ -11,11 +11,13 @@ import org.springframework.lang.NonNull;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);

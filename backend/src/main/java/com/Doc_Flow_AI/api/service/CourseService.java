@@ -2,7 +2,6 @@ package com.Doc_Flow_AI.api.service;
 
 import com.Doc_Flow_AI.api.model.Course;
 import com.Doc_Flow_AI.api.repository.CourseRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,11 +10,13 @@ import java.util.Optional;
 @Service
 public class CourseService {
 
-    @Autowired
-    private CourseRepository courseRepository;
+    private final CourseRepository courseRepository;
+    private final SubjectService subjectService;
 
-    @Autowired
-    private SubjectService subjectService;
+    public CourseService(CourseRepository courseRepository, SubjectService subjectService) {
+        this.courseRepository = courseRepository;
+        this.subjectService = subjectService;
+    }
 
     public List<Course> getAllCourses() {
         return courseRepository.findAll();

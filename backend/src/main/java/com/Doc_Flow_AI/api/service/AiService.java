@@ -1,6 +1,5 @@
 package com.Doc_Flow_AI.api.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -10,8 +9,11 @@ import java.util.*;
 @Service
 public class AiService {
 
-    @Autowired
-    private WorkspaceService workspaceService;
+    private final WorkspaceService workspaceService;
+
+    public AiService(WorkspaceService workspaceService) {
+        this.workspaceService = workspaceService;
+    }
 
     @Value("${gemini.api.key}")
     private String apiKey;

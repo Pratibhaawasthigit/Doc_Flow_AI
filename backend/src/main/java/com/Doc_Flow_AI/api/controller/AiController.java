@@ -1,7 +1,6 @@
 package com.Doc_Flow_AI.api.controller;
 
 import com.Doc_Flow_AI.api.service.AiService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +11,11 @@ import java.util.Map;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AiController {
 
-    @Autowired
-    private AiService aiService;
+    private final AiService aiService;
+
+    public AiController(AiService aiService) {
+        this.aiService = aiService;
+    }
 
     @PostMapping("/generate")
     public ResponseEntity<?> generate(
