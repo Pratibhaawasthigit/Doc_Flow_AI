@@ -1176,7 +1176,7 @@ const TopBar = ({ onUpgrade, onNotif, notifOpen }) => (
       </button>
 
       <div style={{ position: "relative" }}>
-        <button onClick={onNotif} style={{ background: notifOpen ? "#eff6ff" : "none", border: "none", cursor: "pointer", padding: "8px", borderRadius: 10, display: "flex", alignItems: "center", transition: "all .2s", border: `1px solid ${notifOpen ? "rgba(37,99,235,.2)" : "transparent"}` }}>
+        <button onClick={onNotif} style={{ background: notifOpen ? "#eff6ff" : "none", cursor: "pointer", padding: "8px", borderRadius: 10, display: "flex", alignItems: "center", transition: "all .2s", border: `1px solid ${notifOpen ? "rgba(37,99,235,.2)" : "transparent"}` }}>
           <Ic n="notifications" size={22} col={notifOpen ? "#2563eb" : "#64748b"} />
         </button>
         <div style={{ position: "absolute", top: 6, right: 6, width: 9, height: 9, borderRadius: "50%", background: "#ef4444", border: "2px solid #fff", boxShadow: "0 0 0 2px rgba(239, 68, 68, 0.1)" }} />
